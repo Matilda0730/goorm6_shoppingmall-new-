@@ -3,11 +3,15 @@ import "../App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts, setLoading } from "../features/productsSlice";
 import { Link } from "react-router-dom";
+import { addToCart } from "../features/CartSlice";
 
 const Home = () => {
 	const dispatch = useDispatch();
 	const products = useSelector((state) => state.products.items);
 	const loading = useSelector((state) => state.products.loading);
+	const handleAddToCart = (product) => {
+		dispatch(addToCart(product));
+	};
 	const fetchProducts = (category) => {
 		dispatch(setLoading(true));
 		let url = "https://fakestoreapi.com/products";
@@ -70,7 +74,9 @@ const Home = () => {
 								<h5>{`${product.price}$`}</h5>
 							</div>
 						</Link>
-						<button>장바구니에 담기</button>
+						<button className="addToCartBtn" onClick={() => handleAddToCart(product)}>
+							장바구니에 담기
+						</button>
 					</div>
 				))}
 			</div>

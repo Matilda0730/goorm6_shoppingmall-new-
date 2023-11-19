@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import Cart from "./components/Cart";
@@ -12,23 +13,27 @@ import Signup from "./components/Signup";
 import Logout from "./components/Logout";
 import AuthDetail from "./components/AuthDetail";
 import ShowDetailData from "./components/ProductView/ShowDetailData";
+import { ShopcontextProvider } from "./components/Shop-context";
 
 function App() {
 	return (
 		<div className="App">
-			<BrowserRouter>
-				<NavBar />
-				<Routes>
-					<Route path="/cart" element={<Cart />} />
-					<Route path="/not-found" element={<NotFound />} />
-					<Route path="/" element={<Home />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/logout" element={<Logout />} />
-					<Route path="*" element={<Navigate to="/not-found" replace />} />
-					<Route path="/sign-up" element={<Signup />} />
-					<Route path="/product-details/:id" element={<ShowDetailData />} />
-				</Routes>
-			</BrowserRouter>
+			<ShopcontextProvider>
+				<BrowserRouter>
+					<ToastContainer />
+					<NavBar />
+					<Routes>
+						<Route path="/cart" element={<Cart />} />
+						<Route path="/not-found" element={<NotFound />} />
+						<Route path="/" element={<Home />} />
+						<Route path="/login" element={<Login />} />
+						<Route path="/logout" element={<Logout />} />
+						<Route path="*" element={<Navigate to="/not-found" replace />} />
+						<Route path="/sign-up" element={<Signup />} />
+						<Route path="/product-details/:id" element={<ShowDetailData />} />
+					</Routes>
+				</BrowserRouter>
+			</ShopcontextProvider>
 			<Footer />
 		</div>
 	);

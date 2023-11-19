@@ -116,7 +116,7 @@ img {
 	justify-content: center;
 	flex-direction: column;
 	margin: 15px;
-	border: #c5c5c5 1px solid;
+	/* border: #c5c5c5 1px solid; */
 	border-radius: 30px;
 	padding: 15px;
 	transition: all 0.3s ease;
