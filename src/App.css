@@ -108,7 +108,7 @@ img {
 	border-radius: 20px;
 }
 
-.card {
+.item-card {
 	height: 100%;
 	width: 100%;
 	display: flex;
@@ -127,7 +127,7 @@ img {
 	cursor: pointer;
 }
 
-.card-description {
+.item-card-description {
 	display: flex;
 	align-items: center;
 	flex-direction: column;

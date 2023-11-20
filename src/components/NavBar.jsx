@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { setLoading, setProducts } from "../features/productsSlice";
 import SignUpModal from "./Modal/SignUpModal";
 import { Modal } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 // Modal.setAppElement("#root");
 
 const NavBar = () => {
@@ -37,7 +38,7 @@ const NavBar = () => {
 
 	return (
 		<>
-			<signUpModal show={signUpModalOn} onHide={setSignUpModalOn} />
+			<SignUpModal show={signUpModalOn} onHide={setSignUpModalOn} />
 			<nav className="nav-bar">
 				<Link to="/">
 					<h2 onClick={() => fetchProducts("all")}>OnlineShop</h2>
@@ -66,7 +67,7 @@ const NavBar = () => {
 							</div>
 						</Link>
 					)}
-					<button onClick={() => handleClick(true)}>dd</button>
+					<button onClick={() => handleClick()}>dd</button>
 				</div>
 			</nav>
 		</>

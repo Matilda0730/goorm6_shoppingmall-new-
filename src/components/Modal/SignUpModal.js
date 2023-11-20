@@ -1,15 +1,25 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
-
-const signUpModal = ({ show, onHide }) => {
+const customStyles = {
+	overlay: {
+		backgroundColor: "rgba(0, 0, 0, 0)",
+	},
+	content: {
+		width: "570px",
+		top: "5%",
+		left: "auto",
+		right: "10%",
+		bottom: "auto",
+		marginRight: "auto",
+		marginBottom: "auto",
+		transform: "translate(0, 0)",
+		padding: "20px",
+		borderRadius: "10px",
+	},
+};
+const SignUpModal = ({ show, onHide }) => {
 	return (
-		<Modal
-			show={show}
-			onHide={onHide}
-			size="lg"
-			aria-labelledby="contained-modal-title-vcenter"
-			centered
-		>
+		<Modal style={customStyles} show={show} onHide={onHide} size="lg">
 			<Modal.Header closeButton>
 				<Modal.Title id="contained-modal-title-vcenter">Modal heading</Modal.Title>
 			</Modal.Header>
@@ -28,4 +38,4 @@ const signUpModal = ({ show, onHide }) => {
 	);
 };
 
-export default signUpModal;
+export default SignUpModal;
