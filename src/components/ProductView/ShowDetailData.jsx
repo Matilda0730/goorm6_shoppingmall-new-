@@ -10,7 +10,11 @@ const ShowDetailData = () => {
 	const [product, setProduct] = useState(null);
 	const [quantity, setQuantity] = useState(1);
 	const handleAddToCart = (product) => {
-		dispatch(addToCart(product));
+		const productToAdd = {
+			...product,
+			cartQuantity: parseInt(quantity),
+		};
+		dispatch(addToCart(productToAdd));
 	};
 	useEffect(() => {
 		fetch(`https://fakestoreapi.com/products/${id}`)
@@ -43,6 +47,7 @@ const ShowDetailData = () => {
 				/>
 			</div>
 			<button onClick={() => handleAddToCart(product)}>장바구니에 추가</button>
+			<button>바로 구매하기</button>
 		</div>
 	);
 };

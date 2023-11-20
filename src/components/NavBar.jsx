@@ -1,44 +1,75 @@
 import { current } from "@reduxjs/toolkit";
 import { updateCurrentUser } from "firebase/auth";
 import { ShoppingCart, SignIn, SignOut } from "phosphor-react";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { setLoading, setProducts } from "../features/productsSlice";
+import SignUpModal from "./Modal/SignUpModal";
+import { Modal } from "react-bootstrap";
+// Modal.setAppElement("#root");
 
 const NavBar = () => {
+	const [signUpModalOn, setSignUpModalOn] = useState(false);
+	const handleClick = (event) => {
+		setSignUpModalOn(true);
+	};
 	const currentUser = useSelector((state) => state.auth.user);
-	return (
-		<nav className="nav-bar">
-			<Link to="/">
-				<h2>OnlineShop</h2>
-			</Link>
-			<div className="right-container">
-				<Link to="/cart">
-					<div className="nav-bag-container">
-						<div className="nav-bag">
-							<ShoppingCart size={32} />
-							<span className="bag-quantity">
-								<span>0</span>
-							</span>
-						</div>
-					</div>
-				</Link>
+	const dispatch = useDispatch();
+	const fetchProducts = (category) => {
+		dispatch(setLoading(true));
+		let url = "https://fakestoreapi.com/products";
+		if (category !== "all") {
+			url += `/category/${category}`;
+		}
 
-				{currentUser ? (
-					<Link to="/logout">
-						<div className="Login">
-							<SignOut size={32} />{" "}
+		fetch(url)
+			.then((res) => res.json())
+			.then((data) => {
+				dispatch(setProducts(data));
+				dispatch(setLoading(false));
+			})
+			.catch((error) => {
+				console.log(error);
+				dispatch(setLoading(false));
+			});
+	};
+
+	return (
+		<>
+			<signUpModal show={signUpModalOn} onHide={setSignUpModalOn} />
+			<nav className="nav-bar">
+				<Link to="/">
+					<h2 onClick={() => fetchProducts("all")}>OnlineShop</h2>
+				</Link>
+				<div className="right-container">
+					<Link to="/cart">
+						<div className="nav-bag-container">
+							<div className="nav-bag">
+								<ShoppingCart size={32} />
+								<span className="bag-quantity">
+									<span>0</span>
+								</span>
+							</div>
 						</div>
 					</Link>
-				) : (
-					<Link to="/login">
-						<div className="Login">
-							<SignIn size={32} />
-						</div>
-					</Link>
-				)}
-			</div>
-		</nav>
+					{currentUser ? (
+						<Link to="/logout">
+							<div className="Login">
+								<SignOut size={32} />{" "}
+							</div>
+						</Link>
+					) : (
+						<Link to="/login">
+							<div className="Login">
+								<SignIn size={32} />
+							</div>
+						</Link>
+					)}
+					<button onClick={() => handleClick(true)}>dd</button>
+				</div>
+			</nav>
+		</>
 	);
 };
 

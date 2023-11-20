@@ -13,11 +13,13 @@ import Signup from "./components/Signup";
 import Logout from "./components/Logout";
 import AuthDetail from "./components/AuthDetail";
 import ShowDetailData from "./components/ProductView/ShowDetailData";
+import { Modal } from "react-bootstrap";
 
 function App() {
 	return (
 		<div className="App">
 			<BrowserRouter>
+				<Modal />
 				<ToastContainer />
 				<NavBar />
 				<Routes>
