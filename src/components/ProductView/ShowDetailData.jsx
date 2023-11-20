@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useProductView } from "./useProductView";
 import { useParams } from "react-router";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../features/CartSlice";
 
 const ShowDetailData = () => {
+	const dispatch = useDispatch();
 	const { id } = useParams();
 	const [product, setProduct] = useState(null);
 	const [quantity, setQuantity] = useState(1);
-
+	const handleAddToCart = (product) => {
+		dispatch(addToCart(product));
+	};
 	useEffect(() => {
 		fetch(`https://fakestoreapi.com/products/${id}`)
 			.then((res) => res.json())
@@ -37,7 +42,7 @@ const ShowDetailData = () => {
 					min="1"
 				/>
 			</div>
-			<button>장바구니에 추가</button>
+			<button onClick={() => handleAddToCart(product)}>장바구니에 추가</button>
 		</div>
 	);
 };
